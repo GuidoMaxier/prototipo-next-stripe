@@ -15,26 +15,31 @@ function SuccessContent() {
       fetch(`/api/checkout-session?sessionId=${sessionId}`)
         .then((res) => res.json())
         .then((data) => {
-          setSession(data);
-          
-          // --- Conversion Tracking ---
-          if (typeof window !== "undefined") {
-            // Meta Pixel Purchase Event
-            if ((window as any).fbq) {
-              (window as any).fbq("track", "Purchase", {
-                value: data.amount_total / 100,
-                currency: data.currency.toUpperCase(),
-              });
-            }
-            
-            // Google Ads / Analytics Conversion
-            if ((window as any).gtag) {
-              (window as any).gtag("event", "purchase", {
-                transaction_id: data.id,
-                value: data.amount_total / 100,
-                currency: data.currency.toUpperCase(),
-              });
-            }
+          // Verify data exists and has properties before using it
+          if (data && data.id && data.amount_total !== undefined) {
+             setSession(data);
+             
+             // --- Conversion Tracking ---
+             if (typeof window !== "undefined") {
+               // Meta Pixel Purchase Event
+               if ((window as any).fbq) {
+                 (window as any).fbq("track", "Purchase", {
+                   value: data.amount_total / 100,
+                   currency: (data.currency || "USD").toUpperCase(),
+                 });
+               }
+               
+               // Google Ads / Analytics Conversion
+               if ((window as any).gtag) {
+                 (window as any).gtag("event", "purchase", {
+                   transaction_id: data.id,
+                   value: data.amount_total / 100,
+                   currency: (data.currency || "USD").toUpperCase(),
+                 });
+               }
+             }
+          } else {
+             console.warn("Session data incomplete or not found:", data);
           }
         })
         .catch((err) => console.error("Error fetching session:", err));
@@ -67,7 +72,7 @@ function SuccessContent() {
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500 font-medium">Amount Paid</span>
-                <span className="text-slate-900 font-bold">${(session.amount_total / 100).toFixed(2)} {session.currency.toUpperCase()}</span>
+                <span className="text-slate-900 font-bold">${(session.amount_total / 100).toFixed(2)} {(session.currency || "USD").toUpperCase()}</span>
               </div>
             </div>
           </div>
