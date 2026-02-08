@@ -36,7 +36,7 @@ export default function GoogleAnalytics() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${gaId}', {
-              page_path: window.location.pathname,
+              send_page_view: false // Disable automatic page_view
             });
           `,
         }}

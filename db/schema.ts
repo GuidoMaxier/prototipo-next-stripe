@@ -56,10 +56,25 @@ export const verificationTokens = sqliteTable(
   })
 );
 
+// --- SaaS Multi-tenant Tables ---
+
+export const projects = sqliteTable("projects", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  name: text("name").notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  apiKey: text("api_key").unique().notNull(), // Public key for the tracking script
+  url: text("url"), // The client's website URL
+  createdAt: text("created_at").default(sql`(CURRENT_TIMESTAMP)`),
+});
+
 // --- Business Tables ---
 
 export const ordersTable = sqliteTable('orders', {
   id: integer('id').primaryKey({ autoIncrement: true }),
+  projectId: text('project_id')
+    .references(() => projects.id, { onDelete: "cascade" }),
   stripeSessionId: text('stripe_session_id').unique(),
   userId: text('user_id')
     .references(() => users.id),
@@ -78,4 +93,22 @@ export const ordersTable = sqliteTable('orders', {
     .notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' })
     .$onUpdate(() => new Date())
+});
+
+export const visitsTable = sqliteTable('visits', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  projectId: text('project_id')
+    .references(() => projects.id, { onDelete: "cascade" }),
+  
+  // Tracking Data
+  utmSource: text('utm_source'),
+  utmMedium: text('utm_medium'),
+  utmCampaign: text('utm_campaign'),
+  fbclid: text('fbclid'),
+  gclid: text('gclid'),
+  
+  path: text('path').notNull(),
+  createdAt: text('created_at')
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .notNull(),
 });

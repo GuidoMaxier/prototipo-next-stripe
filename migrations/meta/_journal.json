@@ -8,6 +8,13 @@
       "when": 1770542988215,
       "tag": "0000_goofy_pete_wisdom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1770567374677,
+      "tag": "0001_normal_korg",
+      "breakpoints": true
     }
   ]
 }

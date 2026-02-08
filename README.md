@@ -1,74 +1,93 @@
-# US Incorporation - All-in-one Solution Prototype
+# 🎯 AdTracker SaaS - Prototipo de Atribución
 
-Este es un prototipo profesional de e-commerce para servicios de incorporación y finanzas en EE. UU., integrado con **Stripe** para pagos y preparado para el seguimiento de conversiones con **Meta Pixel** y **Google Ads**.
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)
+![Turso](https://img.shields.io/badge/Turso-000000?style=for-the-badge&logo=turso&logoColor=blue)
+![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-## 🚀 Inicio Rápido
-
-### Requisitos Previos
-
-- Node.js instalado.
-- [Stripe CLI](https://github.com/stripe/stripe-cli/releases) (necesario para probar webhooks en local).
-
-### Instalación
-
-1. Clona el repositorio.
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
-3. Configura tu archivo `.env.local` basado en `.env.local.example`.
-
-### Ejecución Local
-
-1. Inicia el servidor de desarrollo:
-
-   ```bash
-   npm run dev
-   ```
-
-   La aplicación estará disponible en [http://localhost:4242](http://localhost:4242).
-
-2. Inicia el oyente de webhooks de Stripe (en una terminal separada):
-   ```bash
-   ./stripe.exe listen --forward-to localhost:4242/api/webhook
-   ```
+> [!IMPORTANT]
+> **ESTO ES UN PROTOTIPO.** No es un Producto Mínimo Viable (MVP) ni una aplicación final. Es una prueba de concepto técnica para validar el flujo de atribución de campañas (Meta/Google Ads) integrando señales del frontend con pagos en el servidor.
 
 ---
 
-## 💳 Cómo Probar el Flujo de Pago
+## 🚀 Propósito del Proyecto
 
-Este proyecto utiliza el modo de prueba de Stripe. Sigue estos pasos para realizar una compra simulada:
+Este prototipo permite entender cómo conectar una visita con parámetros de marketing (`UTMs`, `fbclid`, `gclid`) a una venta real procesada en **Stripe**. Está diseñado para demostrar la viabilidad de un SaaS de analítica propia.
 
-1. Ve a la página principal y haz clic en **"Empezar Ahora"**.
-2. Serás redirigido a la pasarela segura de Stripe.
-3. Utiliza los siguientes datos de tarjeta de prueba:
-   - **Número de tarjeta**: `4242 4242 4242 4242`
-   - **Fecha de expiración**: Cualquier fecha futura (ej. `12/30`)
-   - **CVC**: `123`
-   - **Nombre**: Juan Pérez
-   - **Código Postal (US)**: `90210`
-4. Al completar el pago, serás redirigido de vuelta a la página de **Éxito**.
+## 🛠️ Tecnologías Principales
 
----
+- **Next.js 16 (App Router):** Motor principal de la aplicación.
+- **Drizzle ORM + Turso:** Gestión de base de datos SQL para multi-tenancy.
+- **Stripe SDK:** Manejo de sesiones de pago y webhooks.
+- **AdTracker.js (Custom):** Script universal para captura de señales de tráfico.
 
-## 📊 Seguimiento de Conversiones (Pixel)
+## 📦 Documentación Detallada (Recomendada)
 
-El prototipo incluye una integración base para:
+Para entender cómo funciona el prototipo, revisa la carpeta `docs/`:
 
-- **Meta Pixel**: Registra el evento `PageView` y el evento `Purchase` con el valor real de la transacción.
-- **Google Analytics**: Registra visitas y conversiones de compra.
-
-Para habilitarlos en producción, solo añade los IDs correspondientes en tus variables de entorno en Vercel.
+- [📘 Simulación de Tracking](./docs/simulacion-tracking.md) - Cómo probamos campañas sin gastar en anuncios.
+- [🏗️ Arquitectura del Proyecto](./docs/arquitectura-proyecto.md) - El flujo de datos de la visita a la venta.
+- [📝 Requerimientos del Software (SRS)](./docs/srs-adtracker.md) - Visión técnica y Roadmap hacia un MVP.
 
 ---
 
-## 🛠️ Tecnologías Usadas
+## ⚙️ Configuración Rápida
 
-- **Framework**: Next.js 16 (App Router)
-- **Pagos**: Stripe Checkout
-- **Tracking**: React Hooks para Google/Meta
-- **Estilos**: Tailwind CSS 4.0
+### 1. Variables de Entorno
 
+Crea un archivo `.env.local` con:
 
+```bash
+# Stripe
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+PRICE_INCORPORATION=price_...
 
-https://next-stripe-pixel.vercel.app/success?session_id=cs_test_SIMULACION
+# Database (Turso)
+TURSO_CONNECTION_URL=...
+TURSO_AUTH_TOKEN=...
+
+# Auth (NextAuth)
+AUTH_SECRET=...
+
+# Simulación (Opcional para ver Pixels)
+NEXT_PUBLIC_META_PIXEL_ID=1234567890
+NEXT_PUBLIC_GA_ID=G-XXXXXX
+```
+
+### 2. Instalación
+
+```bash
+npm install
+npm run dev
+```
+
+### 3. Stripe CLI (Vital para Webhooks)
+
+Para que el Dashboard detecte las ventas en local, debes "tunelizar" los webhooks:
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhook
+```
+
+---
+
+## 🚥 Cómo usar la Demo (Flujo de Atribución)
+
+1. **Inicia Sesión:** Logueate con Google para que el sistema cree tu `apiKey` única.
+2. **Visita la Demo:** Ve a `/demo`.
+3. **Simula Clics:** Usa los botones de **Campaign Simulator** (Meta/Google).
+4. **Compra:** Realiza una compra de prueba en el checkout de Stripe.
+5. **Dashboard:** Refresca tu `/dashboard` y verás la orden atribuida a la fuente correcta.
+
+## 📈 Camino hacia el MVP
+
+1. Implementar gestión real de múltiples proyectos/sitios.
+2. Añadir proxies para evadir bloqueadores de anuncios.
+3. Integrar Stripe Billing para suscripciones SaaS.
+4. Desarrollar gráficos de rendimiento temporal (gráficas de línea).
+
+---
+
+_Desarrollado como prototipo técnico para validación de flujo de atribución._

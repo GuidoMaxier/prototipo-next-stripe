@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SaasHero from "@/components/landing/saas/Hero";
 import TrackerVisual from "@/components/landing/saas/TrackerVisual";
@@ -6,7 +5,6 @@ import TrackerVisual from "@/components/landing/saas/TrackerVisual";
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-white selection:bg-primary/30">
-      <Navbar />
       <SaasHero />
       <TrackerVisual />
       
