@@ -1,6 +1,7 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
-@theme {
+/* @theme {
   --color-stripe-purple: #635bff;
   --color-stripe-dark: #0a2540;
   --color-stripe-light: #f6f9fc;
@@ -10,4 +11,4 @@ body {
   font-family: "Raleway", sans-serif;
   color: var(--color-stripe-dark);
   background-color: var(--color-stripe-light);
-}
+} */

@@ -68,3 +68,7 @@ Para habilitarlos en producción, solo añade los IDs correspondientes en tus va
 - **Pagos**: Stripe Checkout
 - **Tracking**: React Hooks para Google/Meta
 - **Estilos**: Tailwind CSS 4.0
+
+
+
+https://next-stripe-pixel.vercel.app/success?session_id=cs_test_SIMULACION

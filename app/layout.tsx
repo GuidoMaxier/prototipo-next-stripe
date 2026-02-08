@@ -4,9 +4,10 @@ import MetaPixel from "@/components/tracking/MetaPixel";
 import GoogleAnalytics from "@/components/tracking/GoogleAnalytics";
 import { Suspense } from "react";
 
+
 export const metadata: Metadata = {
-  title: "US Incorporation | All-in-one Solution",
-  description: "Launch your US Business with professional bookkeeping and tax compliance.",
+  title: "AdTracker | Scientific Attribution for Stripe",
+  description: "Link every Stripe payment to its original ad click. Feed the AI with real profit data.",
 };
 
 export default function RootLayout({
@@ -22,13 +23,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen">
-        <Suspense fallback={null}>
-          <MetaPixel />
-          <GoogleAnalytics />
-        </Suspense>
-        {children}
-      </body>
+   
+        <body className="min-h-screen">
+          <Suspense fallback={null}>
+            <MetaPixel />
+            <GoogleAnalytics />
+          </Suspense>
+          {children}
+        </body>
     </html>
   );
 }
