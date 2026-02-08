@@ -1,4 +1,4 @@
-# 🎓 Guía para Trainees: Simulación de Tracking (Pixels y Analytics)
+# 🎓 Guía: Simulación de Tracking (Pixels y Analytics)
 
 Este documento es una guía paso a paso para que entiendas qué son los "Pixels" y cómo hemos programado la simulación en este proyecto.
 
