@@ -52,7 +52,7 @@ Funciona muy parecido al de Meta, pero con un detalle técnico vital:
 
 ## 4. El Problema del "Doble Conteo" (Muy Importante)
 
-Como desarrollador Junior/Trainee, debes cuidar mucho la **precisión de los datos**.
+Como desarrollador, debes cuidar mucho la **precisión de los datos**.
 Si el cliente ve que tiene 1000 visitas en su web pero solo 10 ventas, pensará que su web es mala. Pero si en realidad tuvo 500 visitas (y las otras 500 fueron errores de doble conteo del programador), su tasa de éxito es mucho mejor.
 
 **Cómo lo solucionamos aquí:**
