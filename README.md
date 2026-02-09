@@ -1,42 +1,56 @@
-# 🎯 AdTracker SaaS - Prototipo de Atribución
+# 🎯 AdTracker SaaS - Prototipo de Atribución Científica
 
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white)
-![Drizzle](https://img.shields.io/badge/Drizzle-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)
-![Turso](https://img.shields.io/badge/Turso-000000?style=for-the-badge&logo=turso&logoColor=blue)
-![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16.1.6-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-SDK-635BFF?style=for-the-badge&logo=stripe&logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle-ORM-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![DaisyUI](https://img.shields.io/badge/DaisyUI-5.x-5AD3D6?style=for-the-badge&logo=daisyui&logoColor=white)
 
 > [!IMPORTANT]
-> **ESTO ES UN PROTOTIPO.** No es un Producto Mínimo Viable (MVP) ni una aplicación final. Es una prueba de concepto técnica para validar el flujo de atribución de campañas (Meta/Google Ads) integrando señales del frontend con pagos en el servidor.
+> **ESTO ES UN PROTOTIPO TÉCNICO.**
+> Validamos el flujo completo de atribución: desde que un usuario hace clic en un anuncio hasta que el dinero llega a tu cuenta de Stripe, asegurando que el dato de marketing nunca se pierda.
 
 ---
 
-## 🚀 Propósito del Proyecto
+## 🚀 Logros del Prototipo (Hasta Hoy)
 
-Este prototipo permite entender cómo conectar una visita con parámetros de marketing (`UTMs`, `fbclid`, `gclid`) a una venta real procesada en **Stripe**. Está diseñado para demostrar la viabilidad de un SaaS de analítica propia.
+- **Atribución Blindada:** Los datos de marketing (`UTMs`, `fbclid`, `gclid`) viajan dentro de los metadatos de Stripe.
+- **Multi-Tenant:** Sistema de cuentas con Google Auth donde cada usuario tiene su propia `apiKey` y Dashboard privado.
+- **Dashboard en Tiempo Real:** Visualización de ventas, ingresos y logs de conversión filtrados por fuente (Meta vs Google).
+- **Diseño Premium:** Interfaz oscura, minimalista y **100% responsiva** (Mobile-First) usando DaisyUI y Tailwind.
+- **Integración Nativa:** Webhooks de Stripe procesan las ventas y las vinculan automáticamente al usuario correcto.
 
-## 🛠️ Tecnologías Principales
+## 🛠️ Cómo funciona el Tracking
 
-- **Next.js 16 (App Router):** Motor principal de la aplicación.
-- **Drizzle ORM + Turso:** Gestión de base de datos SQL para multi-tenancy.
-- **Stripe SDK:** Manejo de sesiones de pago y webhooks.
-- **AdTracker.js (Custom):** Script universal para captura de señales de tráfico.
+Para usar AdTracker en cualquier sitio web, solo se necesita insertar este script:
 
-## 📦 Documentación Detallada (Recomendada)
+```html
+<script
+  src="http://localhost:3000/tracker.js"
+  data-client-id="TU_API_KEY_AQUÍ"
+  async
+></script>
+```
 
-Para entender cómo funciona el prototipo, revisa la carpeta `docs/`:
+### El Ciclo de Vida del Dato:
 
-- [📘 Simulación de Tracking](./docs/simulacion-tracking.md) - Cómo probamos campañas sin gastar en anuncios.
-- [🏗️ Arquitectura del Proyecto](./docs/arquitectura-proyecto.md) - El flujo de datos de la visita a la venta.
-- [📝 Requerimientos del Software (SRS)](./docs/srs-adtracker.md) - Visión técnica y Roadmap hacia un MVP.
+1. **Captura:** El script detecta los parámetros en la URL y los guarda en una **Cookie segura** y **LocalStorage**.
+2. **Puente:** Al crear el pago en Stripe, el servidor lee esa cookie e inyecta los datos en el `payment_intent` de Stripe.
+3. **Cierre:** Stripe confirma el pago -> El Webhook recibe los datos -> El Dashboard muestra la venta atribuida.
 
 ---
 
-## ⚙️ Configuración Rápida
+## 📦 Documentación Técnica
 
-### 1. Variables de Entorno
+- [🏗️ Arquitectura del Proyecto](./docs/arquitectura-proyecto.md) - El flujo de datos detallado.
+- [🎓 Simulación de Tracking](./docs/simulacion-tracking.md) - Cómo funcionan los Pixels y eventos de conversión.
+- [📝 Requerimientos (SRS)](./docs/srs-adtracker.md) - Visión técnica y Roadmap.
 
-Crea un archivo `.env.local` con:
+---
+
+## ⚙️ Configuración para Desarrolladores
+
+### 1. Variables de Entorno (`.env.local`)
 
 ```bash
 # Stripe
@@ -44,28 +58,24 @@ STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 PRICE_INCORPORATION=price_...
 
-# Database (Turso)
-TURSO_CONNECTION_URL=...
-TURSO_AUTH_TOKEN=...
+# Database (Turso/SQLite)
+DATABASE_URL=file:local.db # O URL de Turso
 
-# Auth (NextAuth)
+# Auth (Auth.js v5)
 AUTH_SECRET=...
-
-# Simulación (Opcional para ver Pixels)
-NEXT_PUBLIC_META_PIXEL_ID=1234567890
-NEXT_PUBLIC_GA_ID=G-XXXXXX
+AUTH_GOOGLE_ID=...
+AUTH_GOOGLE_SECRET=...
 ```
 
-### 2. Instalación
+### 2. Comandos Vitales
 
 ```bash
-npm install
-npm run dev
+npm install        # Instalar dependencias
+npm run dev        # Iniciar servidor de desarrollo
+npx drizzle-kit push # Sincronizar base de datos
 ```
 
-### 3. Stripe CLI (Vital para Webhooks)
-
-Para que el Dashboard detecte las ventas en local, debes "tunelizar" los webhooks:
+### 3. Stripe CLI (Requerido para Webhooks)
 
 ```bash
 stripe listen --forward-to localhost:3000/api/webhook
@@ -73,21 +83,4 @@ stripe listen --forward-to localhost:3000/api/webhook
 
 ---
 
-## 🚥 Cómo usar la Demo (Flujo de Atribución)
-
-1. **Inicia Sesión:** Logueate con Google para que el sistema cree tu `apiKey` única.
-2. **Visita la Demo:** Ve a `/demo`.
-3. **Simula Clics:** Usa los botones de **Campaign Simulator** (Meta/Google).
-4. **Compra:** Realiza una compra de prueba en el checkout de Stripe.
-5. **Dashboard:** Refresca tu `/dashboard` y verás la orden atribuida a la fuente correcta.
-
-## 📈 Camino hacia el MVP
-
-1. Implementar gestión real de múltiples proyectos/sitios.
-2. Añadir proxies para evadir bloqueadores de anuncios.
-3. Integrar Stripe Billing para suscripciones SaaS.
-4. Desarrollar gráficos de rendimiento temporal (gráficas de línea).
-
----
-
-_Desarrollado como prototipo técnico para validación de flujo de atribución._
+_Desarrollado con enfoque en precisión de datos y diseño premium._

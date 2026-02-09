@@ -5,51 +5,45 @@
 **Nombre del Proyecto:** AdTracker SaaS Prototipo
 **Objetivo:** Ofrecer a clientes externos una forma sencilla de rastrear el ROI (Retorno de Inversión) de sus campañas de marketing (Meta Ads y Google Ads) utilizando atribución del lado del servidor e integración con Stripe.
 
-## 2. Arquitectura del Sistema
+## 2. Estado Actual del Prototipo (Mitos y Realidades)
 
-- **Framework:** Next.js 16 (App Router)
-- **Base de Datos:** Turso (SQLite a través de Drizzle ORM)
-- **Autenticación:** Auth.js (NextAuth)
-- **Procesador de Pagos:** Stripe
-- **Motor de Rastreo:** Script de JavaScript Universal Personalizado (tracker.js)
+- **Auth completa:** Registro e Login 100% funcionales y responsivos.
+- **Tracking Universal:** El script `tracker.js` es capaz de seguir al usuario incluso si refresca la página gracias a la persistencia dual (Cookies + LocalStorage).
+- **Atribución de Servidor:** No dependemos de que el navegador del usuario "avise" de la compra; Stripe nos avisa directamente, evadiendo bloqueos de frontend.
 
-## 3. Requerimientos Principales
+## 3. Requerimientos Cubiertos
 
-### R1: Soporte Multi-tenant (Multi-cliente)
+### R1: Soporte Multi-tenant
 
-- Cada usuario (agencia o vendedor) puede tener múltiples proyectos dentro de su cuenta.
-- Cada proyecto debe tener una `apiKey` única para identificar el script en la web del cliente.
-- Aislamiento de datos: los pedidos y las visitas deben estar vinculados estrictamente a un `projectId`.
+- Tabla de `projects` vinculada a `users`.
+- Generación de `apiKey` única por proyecto.
+- Los logs de conversión filtran estrictamente por el proyecto activo del usuario.
 
 ### R2: Rastreo de Conversiones Atribuidas
 
-- Captura de parámetros UTM (`utm_source`, `utm_medium`, `utm_campaign`).
-- Captura de identificadores de clic de plataformas de anuncios (`fbclid` para Facebook, `gclid` para Google).
-- Persistencia de datos de atribución a través de cookies del lado del servidor por 24 horas.
+- Detección de `utm_source`, `utm_medium`, `utm_campaign`.
+- Detección de `fbclid` (Meta) y `gclid` (Google).
+- Atribución por "Last Click" (Último clic) persistente.
 
 ### R3: Integración con Stripe
 
-- Mapéo de metadatos de rastreo a las Sesiones de Pago de Stripe (Checkout sessions).
-- Escucha de Webhooks para procesar eventos de `checkout.session.completed`.
-- Desglose automático de ingresos según la fuente de marketing (Meta, Google, Orgánico).
+- Inyección de metadatos en `payment_intent`.
+- Webhook seguro que procesa pagos exitosos.
+- Sincronización automática de ingresos (`revenue`) en el dashboard.
 
-### R4: Panel de Control del Cliente (Dashboard)
+### R4: Panel de Control (Dashboard)
 
-- Visualización en tiempo real de:
-  - Total de Visitas
-  - Tasa de Conversión (%)
-  - Total de Pedidos (Atribuidos por fuente)
-  - Logs detallados de cada conversión
+- Resumen de sesiones y ventas totales.
+- Tabla de logs con identificadores de transacciones reales de Stripe.
+- Etiquetas de colores para identificar fuentes: **Google Ads (Verde)**, **Meta Ads (Azul)**, **Directo (Gris)**.
 
-## 4. Seguridad y Cumplimiento
+## 4. Próximos Pasos (Roadmap al MVP)
 
-- CORS habilitado en la API de Rastreo para permitir la recepción de eventos desde dominios autorizados.
-- Validación de API Key para cada señal de rastreo entrante.
-- Verificación de firma de Webhooks para eventos de Stripe.
+1.  **Gráficos de Tendencias:** Implementar gráficos de líneas para ver ventas diarias/semanales.
+2.  **Gestión de Proyectos:** UI para que el usuario pueda crear y editar múltiples proyectos (actualmente limitado a uno por simplicidad).
+3.  **Filtrado Avanzado:** Capacidad de filtrar el dashboard por rangos de fechas.
+4.  **Integración de Gastos:** Posibilidad de subir cuánto se gastó en Meta/Google para calcular el ROAS automáticamente.
 
-## 5. Hoja de Ruta Futura (Roadmap)
+---
 
-- Soporte para PayPal y otros procesadores usando los Métodos de Pago Automáticos de Stripe.
-- Modelado de atribución multi-toque (Primer clic vs. Último clic).
-- Evasión de bloqueadores de anuncios (Ad-blockers) usando proxy del lado del servidor.
-- Facturación de suscripciones automatizada para los usuarios del SaaS.
+_Documentación de requerimientos para AdTracker v1 (Prototipo)._
