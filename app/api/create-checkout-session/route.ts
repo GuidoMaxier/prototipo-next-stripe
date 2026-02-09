@@ -14,7 +14,12 @@ export async function POST(request: NextRequest) {
 
     // Read tracking data from cookie
     const cookieHeader = request.headers.get("cookie") || "";
-    const cookies = Object.fromEntries(cookieHeader.split('; ').map(c => c.split('=')));
+    const cookies = Object.fromEntries(
+      cookieHeader.split(';').map(c => {
+        const [key, ...value] = c.trim().split('=');
+        return [key, value.join('=')];
+      })
+    );
     const trackingDataRaw = cookies["adtracker_session"];
     let trackingMetadata = {};
     let projectId: string | null = null;
@@ -62,6 +67,13 @@ export async function POST(request: NextRequest) {
         userId: userId || "",
         projectId: projectId || "", // Important for multi-tenant
         ...trackingMetadata
+      },
+      payment_intent_data: {
+        metadata: {
+          userId: userId || "",
+          projectId: projectId || "",
+          ...trackingMetadata
+        },
       },
       success_url: `${domainURL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${domainURL}/canceled`,
