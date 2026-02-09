@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="footer footer-center p-2 bg-slate-950 text-slate-400 border-t border-white/5">
-      <nav className="grid grid-flow-col gap-5 text-[10px] font-black uppercase tracking-[0.2em]">
+    <footer className="footer footer-center p-10 bg-slate-950 text-slate-400 border-t border-white/5">
+      <nav className="grid grid-flow-col gap-6 text-[10px] font-black uppercase tracking-[0.2em]">
         <Link href="/" className="link link-hover hover:text-white transition-colors">Home</Link>
         <Link href="/demo" className="link link-hover hover:text-white transition-colors">Demo</Link>
         <Link href="/login" className="link link-hover hover:text-white transition-colors">Login</Link>

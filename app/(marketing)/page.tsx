@@ -11,11 +11,11 @@ export default function Home() {
       {/* SaaS Middle Section: The Problem */}
       <section className="py-24 px-6 border-t border-white/5 bg-slate-900/30">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">Clicks are fine. <span className="text-primary">Revenue is better.</span></h2>
-          <p className="text-xl text-slate-400 leading-relaxed mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-8 tracking-tight">Clicks are fine. <br className="sm:hidden" /> <span className="text-primary">Revenue is better.</span></h2>
+          <p className="text-lg sm:text-xl text-slate-400 leading-relaxed mb-12 px-2">
             Most ad platforms only track "conversions" based on thank-you pages. 
             This leads to garbage data when people abandon checkout or payments fail. 
-            <b>AdTracker</b> links the final Stripe payment to the exact click that caused it.
+            <b className="text-white">AdTracker</b> links the final Stripe payment to the exact click that caused it.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
             <div className="p-8 rounded-3xl bg-white/5 border border-white/10">

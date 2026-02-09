@@ -30,29 +30,31 @@ async function DemoContent() {
       </div>
       
       {/* Campaign Simulator Panel (Floating UI for testing) */}
-      <div className="fixed top-24 left-6 z-50 bg-white border border-slate-200 p-6 rounded-2xl shadow-xl max-w-sm">
+      <div className="fixed bottom-4 left-4 right-4 sm:bottom-auto sm:top-24 sm:left-6 sm:right-auto z-50 bg-white border border-slate-200 p-6 rounded-2xl shadow-2xl sm:max-w-sm">
         <h3 className="text-sm font-black uppercase tracking-widest mb-4 flex items-center gap-2">
           <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
           Campaign Simulator
         </h3>
         <p className="text-xs text-slate-500 mb-4 font-medium italic">
-          Simula que este cliente llegó desde diferentes fuentes para ver cómo impacta en el Dashboard.
+          Simula que este cliente llegó desde diferentes fuentes.
         </p>
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 xs:grid-cols-3 sm:flex sm:flex-col gap-2">
           <Link href="/demo?utm_source=meta&utm_medium=cpc&utm_campaign=black_friday&fbclid=fb_998877" 
-            className="btn btn-sm btn-outline btn-block rounded-lg normal-case text-[10px] justify-between">
-            <span>Click from Meta Ad</span>
-            <span className="badge badge-primary badge-sm">META</span>
+            className="btn btn-xs sm:btn-sm btn-outline btn-block rounded-lg normal-case text-[9px] sm:text-[10px] justify-between h-auto py-2">
+            <span className="hidden xs:inline">Meta Ad</span>
+            <span className="xs:hidden">Meta</span>
+            <span className="badge badge-primary badge-sm scale-75 sm:scale-100">META</span>
           </Link>
           <Link href="/demo?utm_source=google&utm_medium=search&gclid=g_112233" 
-            className="btn btn-sm btn-outline btn-block rounded-lg normal-case text-[10px] justify-between">
-            <span>Click from Google Search</span>
-            <span className="badge badge-success badge-sm text-white border-none">GOOGLE</span>
+            className="btn btn-xs sm:btn-sm btn-outline btn-block rounded-lg normal-case text-[9px] sm:text-[10px] justify-between h-auto py-2">
+            <span className="hidden xs:inline">Google Search</span>
+            <span className="xs:hidden">Google</span>
+            <span className="badge badge-success badge-sm text-white border-none scale-75 sm:scale-100">GA</span>
           </Link>
           <Link href="/demo" 
-            className="btn btn-sm btn-outline btn-block rounded-lg normal-case text-[10px] justify-between">
-            <span>Organic Visit (Direct)</span>
-            <span className="badge badge-ghost badge-sm border-slate-200">NONE</span>
+            className="btn btn-xs sm:btn-sm btn-outline btn-block rounded-lg normal-case text-[9px] sm:text-[10px] justify-between h-auto py-2">
+            <span>Organic</span>
+            <span className="badge badge-ghost badge-sm border-slate-200 scale-75 sm:scale-100">DIRECT</span>
           </Link>
         </div>
       </div>

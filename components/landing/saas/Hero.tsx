@@ -17,16 +17,16 @@ export default function SaasHero() {
           </div>
         </div>
         
-        <h1 className="text-6xl font-black tracking-tighter text-white sm:text-8xl leading-[0.9] mb-8">
+        <h1 className="text-5xl font-black tracking-tighter text-white sm:text-7xl lg:text-8xl leading-[0.9] mb-8">
           TRACK EVERY <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-blue-400">
             STRIPE DOLLAR.
           </span>
         </h1>
         
-        <p className="mt-8 text-xl leading-relaxed text-slate-400 max-w-3xl mx-auto font-medium">
+        <p className="mt-8 text-lg sm:text-xl leading-relaxed text-slate-400 max-w-3xl mx-auto font-medium px-4">
           AdTracker uses server-side digital fingerprinting to link every Stripe payment to its original ad click. 
-          Feed the AI with 100% accurate profit data, not estimated events.
+          Feed the AI with 100% accurate profit data.
         </p>
         
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">

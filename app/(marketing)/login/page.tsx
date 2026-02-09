@@ -14,44 +14,44 @@ async function LoginContent() {
   }
 
   return (
-    <div className="hero mt-12 md:mt-20">
-      <div className="hero-content flex-col lg:flex-row-reverse gap-16 max-w-6xl mt-5">
-        <div className="text-center lg:text-left max-w-md">
-          <h1 className="text-6xl font-black tracking-tighter leading-none mb-6">
-            REGAIN <br /> CONTROL.
+    <div className="hero flex items-center justify-center py-10 sm:py-12 lg:py-16">
+      <div className="hero-content flex-col w-full max-w-2xl px-4 sm:px-6">
+        <div className="text-center mb-5">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase mb-4 leading-none">
+            REGAIN <br className="hidden xs:block" /> CONTROL.
           </h1>
-          <p className="py-6 text-slate-400 text-lg font-medium">
+          <p className="text-sm sm:text-base text-slate-400 font-medium max-w-md mx-auto">
             Access your attribution dashboard. Stop guessing and start scaling with real Stripe data.
           </p>
         </div>
 
-        <div className="card bg-slate-900 border border-white/10 w-full max-w-sm shrink-0 shadow-2xl rounded-[2.5rem] overflow-hidden">
-          <div className="card-body p-8">
-            <fieldset className="fieldset bg-slate-950/50 border border-white/5 rounded-[2rem] p-6 lg:p-8">
-              <legend className="fieldset-legend text-[10px] font-black uppercase tracking-[0.3em] text-blue-500 px-4">Login Details</legend>
+        <div className="card bg-slate-900 border border-white/10 w-full shadow-2xl rounded-[2rem] sm:rounded-[3rem] overflow-hidden transition-all duration-500 hover:border-blue-500/30">
+          <div className="card-body p-5 sm:p-8">
+            <fieldset className="fieldset bg-slate-950/50 border border-white/5 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8">
+              <legend className="fieldset-legend text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-blue-500 px-3 sm:px-4 bg-slate-900 border border-white/10 rounded-full py-1">Identity verification</legend>
 
-              <div className="w-full flex flex-col gap-1">
-                <label className="label text-slate-400 font-bold p-0 px-1">Email Address</label>
-                <input type="email" placeholder="name@company.com" className="input bg-slate-900 border-white/10 focus:border-blue-500 rounded-xl w-full" required />
+              <div className="w-full flex flex-col gap-1.5 mb-3">
+                <label className="label text-slate-400 font-bold p-0 px-1 text-xs sm:text-sm">Business Email</label>
+                <input type="email" placeholder="name@company.com" className="input bg-slate-900 border-white/10 focus:border-blue-500 focus:bg-slate-900/80 rounded-xl w-full h-11 sm:h-12" required />
               </div>
               
-              <div className="w-full flex flex-col gap-1 mt-4">
-                <label className="label text-slate-400 font-bold p-0 px-1">Access Key</label>
-                <input type="password" placeholder="••••••••" className="input bg-slate-900 border-white/10 focus:border-blue-500 rounded-xl w-full" required />
+              <div className="w-full flex flex-col gap-1.5 mb-2">
+                <label className="label text-slate-400 font-bold p-0 px-1 text-xs sm:text-sm">Access Key</label>
+                <input type="password" placeholder="••••••••" className="input bg-slate-900 border-white/10 focus:border-blue-500 focus:bg-slate-900/80 rounded-xl w-full h-11 sm:h-12" required />
               </div>
 
-              <div className="mt-2 text-right">
-                <a className="text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-blue-400 transition-colors cursor-pointer">Recover Key</a>
+              <div className="text-right mb-4">
+                <a className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] text-slate-600 hover:text-blue-400 transition-colors cursor-pointer">Recover Access</a>
               </div>
 
-              <button className="btn btn-primary mt-8 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 border-none text-white h-14 w-full">
-                Sign In
+              <button className="btn btn-primary rounded-xl font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 border-none text-white h-12 sm:h-14 w-full transition-all hover:scale-[1.02] active:scale-[0.98]">
+                Sign In to Signal
               </button>
             </fieldset>
 
-            <div className="divider text-[10px] font-black opacity-10 uppercase tracking-[0.3em] my-6 text-slate-500">Social Login</div>
+            <div className="divider text-[9px] sm:text-[10px] font-black opacity-10 uppercase tracking-[0.3em] my-6 text-slate-500">Social Authentication</div>
 
-            <div className="align-center justify-center flex">
+            <div className="flex justify-center">
               <SignIn />
             </div>
           </div>
