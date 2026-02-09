@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { auth, signOut } from "@/lib/auth";
+import { auth } from "@/lib/auth";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 export default async function Navbar() {
   const session = await auth();
@@ -63,11 +64,10 @@ export default async function Navbar() {
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-2xl bg-slate-900 rounded-2xl w-64 border border-white/10">
               <div className="mb-2 px-2"><p className="text-[9px] font-black uppercase tracking-widest opacity-30 text-white">Identity</p><p className="text-xs font-bold text-slate-400 truncate">{user.email}</p></div>
-              <div className="divider opacity-5 my-1"></div>
+              {/* <div className="divider opacity-5"></div> */}
               <li><Link href="/profile" className="py-3 font-bold text-white text-xs uppercase tracking-widest">Profile</Link></li>
               <li><Link href="/dashboard" className="py-3 font-bold text-blue-500 text-xs uppercase tracking-widest">Dashboard</Link></li>
-              <div className="divider opacity-5 my-1"></div>
-              <li><form action={async () => { "use server"; await signOut(); }}><button className="text-red-500 font-bold text-xs uppercase tracking-widest w-full text-left">Logout</button></form></li>
+              <p className="flex justify-center mt-2 w-full"><LogoutButton variant="nav" label="Logout" /></p>
             </ul>
           </div>
         )}

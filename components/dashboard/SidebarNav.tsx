@@ -15,17 +15,22 @@ function NavItem({ href, icon, label }: NavItemProps) {
   const isActive = pathname === href;
 
   return (
-    <li>
+    <li className="is-drawer-close:overflow-visible">
       <Link 
         href={href} 
-        className={`rounded-xl py-3 px-4 font-bold transition-all flex items-center gap-4 ${
+        className={`font-bold transition-all flex items-center group is-drawer-close:tooltip is-drawer-close:tooltip-right is-drawer-close:px-0 is-drawer-close:justify-center is-drawer-open:px-4 is-drawer-open:justify-start is-drawer-open:gap-4 h-12 rounded-xl border-none ${
           isActive 
             ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20" 
             : "text-slate-400 hover:text-white hover:bg-white/5"
         }`}
+        data-tip={label}
       >
-        {icon}
-        {label}
+        <div className="shrink-0 flex items-center justify-center w-10">
+          {icon}
+        </div>
+        <span className="is-drawer-close:hidden whitespace-nowrap">
+          {label}
+        </span>
       </Link>
     </li>
   );
@@ -33,7 +38,7 @@ function NavItem({ href, icon, label }: NavItemProps) {
 
 export default function SidebarNav() {
   return (
-    <ul className="menu menu-md p-4 space-y-2 flex-grow">
+    <ul className="menu menu-md px-3 space-y-1.5 flex-grow">
       <NavItem 
         href="/dashboard" 
         label="Overview" 
@@ -41,12 +46,12 @@ export default function SidebarNav() {
       />
       <NavItem 
         href="/profile" 
-        label="Profile & Security" 
+        label="Profile" 
         icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>} 
       />
       
-      <li>
-        <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 mt-4 mb-2 px-4 pointer-events-none">Configuration</div>
+      <li className="is-drawer-close:hidden">
+        <div className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 mt-4 mb-1 px-4 pointer-events-none">Configuration</div>
       </li>
 
       <NavItem 

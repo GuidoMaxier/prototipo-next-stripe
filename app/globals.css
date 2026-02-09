@@ -1,5 +1,8 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  /* ... */
+  exclude: properties;
+}
 
 /* @theme {
   --color-stripe-purple: #635bff;
