@@ -59,7 +59,14 @@ export async function POST(request: NextRequest) {
       mode: "payment",
       line_items: [
         {
-          price: process.env.PRICE_INCORPORATION!,
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Premium Incorporation Service",
+              description: "Full incorporation service with compliance and tracking.",
+            },
+            unit_amount: 59900, // $599.00
+          },
           quantity: quantity,
         },
       ],
